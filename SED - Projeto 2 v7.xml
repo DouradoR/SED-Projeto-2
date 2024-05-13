@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+const int N = 3; //Numero de veiculos
+typedef int [0,N-1] id_t;
+
+
+broadcast chan change;//Incremento do tempo em 1s ou 5s
+broadcast chan aproximando[N];
+
+
+clock time;		// Global time
+
+int intTime[N]; //Tempo para cada carro fazer a pessagem
+int i;
+
+int L[5];		//Liberação dos semáforos - Binario 
+
+int time1 = 5;
+int time2 = 10;
+
+void timeCar(int passo){
+    for(i = 0; i &lt; N; i++){
+        intTime[i] +=passo;
+    }
+}
+
+
+</declaration>
+	<template>
+		<name x="5" y="5">Semaforo</name>
+		<parameter>const int delay, const int delay2, const int delay3, const int aux</parameter>
+		<declaration>// Place local declarations here.
+clock y;
+</declaration>
+		<location id="id0" x="-323" y="-8">
+			<name x="-348" y="8">Verde</name>
+		</location>
+		<location id="id1" x="-161" y="-8">
+			<name x="-187" y="8">Amarelo</name>
+		</location>
+		<location id="id2" x="8" y="-8">
+			<name x="-25" y="8">Vermelho</name>
+		</location>
+		<init ref="id0"/>
+		<transition id="id3">
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-102" y="-93">y&gt;=delay3</label>
+			<label kind="synchronisation" x="-143" y="-72">change?</label>
+			<label kind="assignment" x="-59" y="-68">y=0, L[aux]=0</label>
+			<nail x="-161" y="-102"/>
+		</transition>
+		<transition id="id4">
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-110" y="8">y&gt;=delay2</label>
+			<label kind="synchronisation" x="-143" y="-25">change?</label>
+			<label kind="assignment" x="-143" y="-8">y=0</label>
+		</transition>
+		<transition id="id5">
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-289" y="8">y &gt;= delay</label>
+			<label kind="synchronisation" x="-272" y="-34">change?</label>
+			<label kind="assignment" x="-305" y="-8">y=0, L[aux]=1</label>
+		</transition>
+	</template>
+	<template>
+		<name>Carro</name>
+		<parameter>const id_t id</parameter>
+		<declaration>
+hybrid clock z;
+
+int inicio;
+int x;</declaration>
+		<location id="id6" x="-229" y="-42">
+			<name x="-271" y="-25">Nao_Gerado</name>
+			<label kind="exponentialrate" x="-322" y="-84">(id+1):N*N</label>
+		</location>
+		<location id="id7" x="-77" y="-102">
+			<name x="-94" y="-85">Posto</name>
+		</location>
+		<location id="id8" x="68" y="-102">
+		</location>
+		<location id="id9" x="68" y="-102">
+			<name x="17" y="-85">Pos_Semaforo1</name>
+		</location>
+		<location id="id10" x="204" y="-102">
+			<name x="229" y="-110">Pos_Semaforo2</name>
+		</location>
+		<location id="id11" x="204" y="8">
+			<name x="153" y="25">Pos_Semaforo3</name>
+		</location>
+		<location id="id12" x="68" y="8">
+			<name x="17" y="25">Pos_Semaforo4</name>
+		</location>
+		<location id="id13" x="-76" y="8">
+			<name x="-127" y="25">Rota</name>
+		</location>
+		<init ref="id6"/>
+		<transition id="id14">
+			<source ref="id13"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-187" y="-8">change?</label>
+		</transition>
+		<transition id="id15">
+			<source ref="id12"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-58" y="-26">intTime[id] &gt;= 8</label>
+		</transition>
+		<transition id="id16">
+			<source ref="id11"/>
+			<target ref="id12"/>
+			<label kind="guard" x="34" y="-34">L[4] == 0 &amp;&amp; intTime[id] &gt;= 15</label>
+		</transition>
+		<transition id="id17">
+			<source ref="id10"/>
+			<target ref="id11"/>
+			<label kind="guard" x="221" y="-59">L[3] == 0 &amp;&amp; intTime[id] &gt;= 14</label>
+		</transition>
+		<transition id="id18">
+			<source ref="id9"/>
+			<target ref="id10"/>
+			<label kind="guard" x="59" y="-136">L[2] == 0 &amp;&amp; intTime[id]&gt;=12</label>
+		</transition>
+		<transition id="id19">
+			<source ref="id7"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-119" y="-161">L[1] == 0 &amp;&amp; intTime[id]&gt;=(108+inicio)</label>
+			<label kind="assignment" x="-59" y="-102">intTime[id] = 0</label>
+		</transition>
+		<transition id="id20" controllable="false">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-246" y="-136">aproximando[id]!</label>
+			<label kind="assignment" x="-246" y="-119">inicio = intTime[id]</label>
+		</transition>
+	</template>
+	<template>
+		<name>NewCar</name>
+		<location id="id21" x="0" y="0">
+		</location>
+		<init ref="id21"/>
+		<transition id="id22" controllable="false">
+			<source ref="id21"/>
+			<target ref="id21"/>
+			<label kind="select" x="-25" y="-85">e:id_t</label>
+			<label kind="synchronisation" x="-51" y="-68">aproximando[e]?</label>
+			<nail x="-42" y="-42"/>
+			<nail x="34" y="-42"/>
+		</transition>
+	</template>
+	<template>
+		<name>Controlador</name>
+		<declaration>clock z;</declaration>
+		<location id="id23" x="-153" y="-187">
+		</location>
+		<init ref="id23"/>
+		<transition id="id24">
+			<source ref="id23"/>
+			<target ref="id23"/>
+			<label kind="guard" x="-280" y="-212">z == time2</label>
+			<label kind="synchronisation" x="-272" y="-195">change!</label>
+			<label kind="assignment" x="-348" y="-178">z = 0,timeCar(1)</label>
+			<nail x="-195" y="-212"/>
+			<nail x="-195" y="-144"/>
+		</transition>
+		<transition id="id25">
+			<source ref="id23"/>
+			<target ref="id23"/>
+			<label kind="guard" x="-170" y="-272">z == time1</label>
+			<label kind="synchronisation" x="-178" y="-255">change!</label>
+			<label kind="assignment" x="-178" y="-289">z = 0,timeCar(5)</label>
+			<nail x="-119" y="-229"/>
+			<nail x="-187" y="-229"/>
+		</transition>
+	</template>
+	<system>const int T1_RtoG = 15,T1_GtoY = 30, T1_YtoR = 5;
+const int T2_RtoG = 15,T2_GtoY = 30, T2_YtoR = 5;
+const int T3_RtoG = 15,T3_GtoY = 30, T3_YtoR = 5;
+const int T4_RtoG = 15,T4_GtoY = 30, T4_YtoR = 5;
+
+Semaforo1 = Semaforo(T1_GtoY,T1_YtoR,T1_RtoG,1);
+Semaforo2 = Semaforo(T2_GtoY,T2_YtoR,T2_RtoG,2);
+Semaforo3 = Semaforo(T3_GtoY,T3_YtoR,T3_RtoG,3);
+Semaforo4 = Semaforo(T4_GtoY,T4_YtoR,T4_RtoG,4);
+
+system Semaforo1, Semaforo2, Semaforo3, Semaforo4,Controlador,Carro;</system>
+	<queries>
+		<query>
+			<formula/>
+			<comment/>
+		</query>
+	</queries>
+</nta>
