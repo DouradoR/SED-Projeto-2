@@ -70,11 +70,18 @@ clock y;
 	<template>
 		<name>Carro</name>
 		<parameter>const id_t id</parameter>
-		<declaration>
-hybrid clock z;
+		<declaration>int inicio = 0;
+int x;
 
-int inicio;
-int x;</declaration>
+int dist1 = 108;
+
+int dist2 = 12;
+int dist3 = 14;
+int dist4 = 15;
+int dist5 = 8;
+
+//dist1 = (dist1)+(inicio);
+</declaration>
 		<location id="id6" x="-229" y="-42">
 			<name x="-271" y="-25">Nao_Gerado</name>
 			<label kind="exponentialrate" x="-322" y="-84">(id+1):N*N</label>
@@ -108,27 +115,31 @@ int x;</declaration>
 		<transition id="id15">
 			<source ref="id12"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-58" y="-26">intTime[id] &gt;= 8</label>
+			<label kind="guard" x="-58" y="-26">intTime[id] &gt;= dist5</label>
+			<label kind="assignment" x="-58" y="8">intTime[id] = 0</label>
 		</transition>
 		<transition id="id16">
 			<source ref="id11"/>
 			<target ref="id12"/>
-			<label kind="guard" x="34" y="-34">L[4] == 0 &amp;&amp; intTime[id] &gt;= 15</label>
+			<label kind="guard" x="34" y="-34">L[4] == 0 &amp;&amp; intTime[id] &gt;= dist4</label>
+			<label kind="assignment" x="86" y="8">intTime[id] = 0</label>
 		</transition>
 		<transition id="id17">
 			<source ref="id10"/>
 			<target ref="id11"/>
-			<label kind="guard" x="221" y="-59">L[3] == 0 &amp;&amp; intTime[id] &gt;= 14</label>
+			<label kind="guard" x="221" y="-59">L[3] == 0 &amp;&amp; intTime[id] &gt;= dist3</label>
+			<label kind="assignment" x="204" y="-47">intTime[id] = 0</label>
 		</transition>
 		<transition id="id18">
 			<source ref="id9"/>
 			<target ref="id10"/>
-			<label kind="guard" x="59" y="-136">L[2] == 0 &amp;&amp; intTime[id]&gt;=12</label>
+			<label kind="guard" x="59" y="-136">L[2] == 0 &amp;&amp; intTime[id]&gt;=dist2</label>
+			<label kind="assignment" x="86" y="-102">intTime[id] = 0</label>
 		</transition>
 		<transition id="id19">
 			<source ref="id7"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-119" y="-161">L[1] == 0 &amp;&amp; intTime[id]&gt;=(108+inicio)</label>
+			<label kind="guard" x="-119" y="-161">L[1] == 0 &amp;&amp; intTime[id]&gt;=dist1</label>
 			<label kind="assignment" x="-59" y="-102">intTime[id] = 0</label>
 		</transition>
 		<transition id="id20" controllable="false">
@@ -163,7 +174,7 @@ int x;</declaration>
 			<target ref="id23"/>
 			<label kind="guard" x="-280" y="-212">z == time2</label>
 			<label kind="synchronisation" x="-272" y="-195">change!</label>
-			<label kind="assignment" x="-348" y="-178">z = 0,timeCar(1)</label>
+			<label kind="assignment" x="-348" y="-178">z = 0,timeCar(time2)</label>
 			<nail x="-195" y="-212"/>
 			<nail x="-195" y="-144"/>
 		</transition>
@@ -172,7 +183,7 @@ int x;</declaration>
 			<target ref="id23"/>
 			<label kind="guard" x="-170" y="-272">z == time1</label>
 			<label kind="synchronisation" x="-178" y="-255">change!</label>
-			<label kind="assignment" x="-178" y="-289">z = 0,timeCar(5)</label>
+			<label kind="assignment" x="-178" y="-289">z = 0,timeCar(time1)</label>
 			<nail x="-119" y="-229"/>
 			<nail x="-187" y="-229"/>
 		</transition>
