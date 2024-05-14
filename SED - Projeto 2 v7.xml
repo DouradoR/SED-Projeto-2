@@ -18,7 +18,7 @@ int i;
 int L[5];		//Liberação dos semáforos - Binario 
 
 int time1 = 5;
-int time2 = 10;
+//int time2 = 10;
 
 void timeCar(int passo){
     for(i = 0; i &lt; N; i++){
@@ -170,15 +170,6 @@ int dist5 = 8;
 		</location>
 		<init ref="id23"/>
 		<transition id="id24">
-			<source ref="id23"/>
-			<target ref="id23"/>
-			<label kind="guard" x="-280" y="-212">z == time2</label>
-			<label kind="synchronisation" x="-272" y="-195">change!</label>
-			<label kind="assignment" x="-348" y="-178">z = 0,timeCar(time2)</label>
-			<nail x="-195" y="-212"/>
-			<nail x="-195" y="-144"/>
-		</transition>
-		<transition id="id25">
 			<source ref="id23"/>
 			<target ref="id23"/>
 			<label kind="guard" x="-170" y="-272">z == time1</label>
