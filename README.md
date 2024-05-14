@@ -1,9 +1,9 @@
 # SED-Projeto-2
 ### A onda verde do Professor Kyller
 
-O objetivo do projeto é modelar um sistema de semáforos e encontrar o ajuste ideal para que os carros parem no máximo uma vez durante o trajeto. Utilizando automatos temporizados e o software [UPPAAL](https://uppaal.org/).
+O objetivo do projeto é modelar um sistema de semáforos e encontrar o ajuste ideal para que os veículos do tráfego de carros implementado parem no máximo uma vez durante o trajeto. Utilizando automatos temporizados e o software [UPPAAL](https://uppaal.org/).
 
-E Considerando o trajeto abaixo. Onde existem 4 semáforos que seguem as seguintes distâncias. 
+Foi considerado o trajeto abaixo. Onde existem 4 semáforos que seguem as seguintes distâncias. 
 - Distância do posto ao 1º semáforo: 1.200m
 - Distância do 1º ao 2º semáforo: 130m
 - Distância do 2º ao 3º semáforo: 160m
@@ -13,7 +13,7 @@ E Considerando o trajeto abaixo. Onde existem 4 semáforos que seguem as seguint
 
 ![image](https://github.com/DouradoR/SED-Projeto-2/assets/86689951/17711cbf-e576-477c-b415-b1ec1c7251ae)
 
-Ao considerar uma velocidade média de 40 km/h. Temos que cada carro gasta os seguintes tempos (aproximados) para fazer a travessia entre os semáforos.
+Ao estipular uma velocidade média de 40 km/h. Temos que cada carro gasta os seguintes tempos (aproximados) para fazer a travessia entre os semáforos.
 - Tempo do posto ao 1º semáforo: 108s
 - Tempo do 1º ao 2º semáforo: 12s
 - Tempo do 2º ao 3º semáforo: 14s
@@ -52,5 +52,25 @@ Criado para realizar o controle principal do sistema, é responsável por increm
 
 ### Automato Carro
 
+Para criar o tráfego de carros, foi utilizado o automato carro. Onde a variável global N, representa quandos carros podem ser "gerados". A Variável N pode ser alterada para o número desejado. Mas para facilitar a visualização nos testes será utilizado 3 carros.  
+
+![image](https://github.com/DouradoR/SED-Projeto-2/assets/86689951/6f436f8f-0c2c-4d96-b262-121e69c1bc3a)
+
+A aproximação de um veículo no posto foi representada como um evento não controlável. E após isso uma variável registra o tempo de inicio do trajeto, para poder bloquear a passagem para o próximo estado até que o carro tenha chegado e que o semáforo da vez esteja verde. Distância_UP é uma função criada para que a variável dist1 assuma o valor, por exemplo de 108 + inicio, que seria o tempo necessáirio para o carro chegar ao próximo semáforo.  
+
+![image](https://github.com/DouradoR/SED-Projeto-2/assets/86689951/0e4a1617-c99e-4d9b-a948-fb805f842abc)
+
+
 ### Automato NewCar
+
+O automato New Car é apenas um complemento para a sincronização da aproximação de um carro no posto. 
+
+![image](https://github.com/DouradoR/SED-Projeto-2/assets/86689951/75c6466b-f1c0-4a85-9c37-907f4aa2a180)
+
+
+### Simulador
+
+![image](https://github.com/DouradoR/SED-Projeto-2/assets/86689951/d63803e8-8313-427d-a4d4-d2c2d9d4301d)
+
+
 
