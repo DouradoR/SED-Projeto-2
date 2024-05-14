@@ -47,9 +47,9 @@ clock y;
 		<transition id="id3">
 			<source ref="id2"/>
 			<target ref="id0"/>
-			<label kind="guard" x="-102" y="-93">y&gt;=delay3</label>
-			<label kind="synchronisation" x="-143" y="-72">change?</label>
-			<label kind="assignment" x="-59" y="-68">y=0, L[aux]=0</label>
+			<label kind="guard" x="-187" y="-127">y&gt;=delay3</label>
+			<label kind="synchronisation" x="-187" y="-85">change?</label>
+			<label kind="assignment" x="-93" y="-85">y=0, L[aux]=0</label>
 			<nail x="-161" y="-102"/>
 		</transition>
 		<transition id="id4">
@@ -81,30 +81,34 @@ int dist4 = 15;
 int dist5 = 8;
 
 //dist1 = (dist1)+(inicio);
+void distancia_up()
+{
+  dist1 = dist1 + inicio;
+}
 </declaration>
 		<location id="id6" x="-229" y="-42">
 			<name x="-271" y="-25">Nao_Gerado</name>
 			<label kind="exponentialrate" x="-322" y="-84">(id+1):N*N</label>
 		</location>
-		<location id="id7" x="-77" y="-102">
-			<name x="-94" y="-85">Posto</name>
+		<location id="id7" x="-110" y="-102">
+			<name x="-127" y="-85">Posto</name>
 		</location>
 		<location id="id8" x="68" y="-102">
 		</location>
 		<location id="id9" x="68" y="-102">
 			<name x="17" y="-85">Pos_Semaforo1</name>
 		</location>
-		<location id="id10" x="204" y="-102">
-			<name x="229" y="-110">Pos_Semaforo2</name>
+		<location id="id10" x="238" y="-102">
+			<name x="263" y="-110">Pos_Semaforo2</name>
 		</location>
-		<location id="id11" x="204" y="8">
-			<name x="153" y="25">Pos_Semaforo3</name>
+		<location id="id11" x="238" y="8">
+			<name x="187" y="25">Pos_Semaforo3</name>
 		</location>
 		<location id="id12" x="68" y="8">
 			<name x="17" y="25">Pos_Semaforo4</name>
 		</location>
-		<location id="id13" x="-76" y="8">
-			<name x="-127" y="25">Rota</name>
+		<location id="id13" x="-110" y="8">
+			<name x="-161" y="25">Rota</name>
 		</location>
 		<init ref="id6"/>
 		<transition id="id14">
@@ -115,38 +119,39 @@ int dist5 = 8;
 		<transition id="id15">
 			<source ref="id12"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-58" y="-26">intTime[id] &gt;= dist5</label>
-			<label kind="assignment" x="-58" y="8">intTime[id] = 0</label>
+			<label kind="guard" x="-102" y="-25">intTime[id] &gt;= dist5</label>
+			<label kind="assignment" x="-76" y="8">intTime[id] = 0</label>
 		</transition>
 		<transition id="id16">
 			<source ref="id11"/>
 			<target ref="id12"/>
-			<label kind="guard" x="34" y="-34">L[4] == 0 &amp;&amp; intTime[id] &gt;= dist4</label>
+			<label kind="guard" x="68" y="42">L[4] == 0 &amp;&amp; intTime[id] &gt;= dist4</label>
 			<label kind="assignment" x="86" y="8">intTime[id] = 0</label>
 		</transition>
 		<transition id="id17">
 			<source ref="id10"/>
 			<target ref="id11"/>
-			<label kind="guard" x="221" y="-59">L[3] == 0 &amp;&amp; intTime[id] &gt;= dist3</label>
-			<label kind="assignment" x="204" y="-47">intTime[id] = 0</label>
+			<label kind="guard" x="153" y="-76">L[3] == 0 &amp;&amp; intTime[id] &gt;= dist3</label>
+			<label kind="assignment" x="246" y="-59">intTime[id] = 0</label>
 		</transition>
 		<transition id="id18">
 			<source ref="id9"/>
 			<target ref="id10"/>
-			<label kind="guard" x="59" y="-136">L[2] == 0 &amp;&amp; intTime[id]&gt;=dist2</label>
-			<label kind="assignment" x="86" y="-102">intTime[id] = 0</label>
+			<label kind="guard" x="68" y="-136">L[2] == 0 &amp;&amp; intTime[id]&gt;=dist2</label>
+			<label kind="assignment" x="119" y="-161">intTime[id] = 0</label>
 		</transition>
 		<transition id="id19">
 			<source ref="id7"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-119" y="-161">L[1] == 0 &amp;&amp; intTime[id]&gt;=dist1</label>
-			<label kind="assignment" x="-59" y="-102">intTime[id] = 0</label>
+			<label kind="guard" x="-144" y="-161">L[1] == 0 &amp;&amp; intTime[id]&gt;=dist1</label>
+			<label kind="assignment" x="-85" y="-136">intTime[id] = 0</label>
 		</transition>
 		<transition id="id20" controllable="false">
 			<source ref="id6"/>
 			<target ref="id7"/>
-			<label kind="synchronisation" x="-246" y="-136">aproximando[id]!</label>
-			<label kind="assignment" x="-246" y="-119">inicio = intTime[id]</label>
+			<label kind="synchronisation" x="-280" y="-144">aproximando[id]!</label>
+			<label kind="assignment" x="-289" y="-127">inicio = intTime[id],
+distancia_up()</label>
 		</transition>
 	</template>
 	<template>
@@ -189,7 +194,7 @@ Semaforo2 = Semaforo(T2_GtoY,T2_YtoR,T2_RtoG,2);
 Semaforo3 = Semaforo(T3_GtoY,T3_YtoR,T3_RtoG,3);
 Semaforo4 = Semaforo(T4_GtoY,T4_YtoR,T4_RtoG,4);
 
-system Semaforo1, Semaforo2, Semaforo3, Semaforo4,Controlador,Carro;</system>
+system Semaforo1, Semaforo2, Semaforo3, Semaforo4,Controlador,Carro,NewCar;</system>
 	<queries>
 		<query>
 			<formula/>
