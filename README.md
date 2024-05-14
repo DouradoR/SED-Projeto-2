@@ -1,4 +1,8 @@
 # SED-Projeto-2
+
+### Vídeo
+
+[![Nome do Vídeo](https://img.youtube.com/vi/f-RWY4QGIz0/0.jpg)](https://www.youtube.com/watch?v=f-RWY4QGIz0)
 ### A onda verde do Professor Kyller
 
 O objetivo do projeto é modelar um sistema de semáforos e encontrar o ajuste ideal para que os veículos do tráfego de carros implementado parem no máximo uma vez durante o trajeto. Utilizando automatos temporizados e o software [UPPAAL](https://uppaal.org/).
