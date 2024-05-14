@@ -45,7 +45,7 @@ Declaração dos semáforos utilizando system, e dos tempos de transição. Cada
 
 ### Automato Controlador
 
-Criado para realizar o controle principal do sistema, é responsável por incrementar a variável intTime para facilitar o acompanhamento do sistema, é possível incrementar 10 segundos ou 5 segundos. O controlador também é responsável por induzir a alteração de estados dos semáforos (__change!__) caso eles atendam as condições impostas em guard (y>=delay). A varíavel z é o clock local do controlador, e ao fazer z == timeX o time global está passando também.  
+Criado para realizar o controle principal do sistema, é responsável por incrementar a variável intTime para facilitar o acompanhamento do sistema, é possível incrementar em 5 segundos. O controlador também é responsável por induzir a alteração de estados dos semáforos (__change!__) caso eles atendam as condições impostas em guard (y>=delay). A varíavel z é o clock local do controlador, e ao fazer z == time1 o time global está passando também.  
 
 ![image](https://github.com/DouradoR/SED-Projeto-2/assets/86689951/c9b8b0e0-2400-4a5c-add7-711ecacf08e0)
 
